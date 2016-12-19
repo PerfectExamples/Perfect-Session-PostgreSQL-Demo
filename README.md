@@ -1,4 +1,4 @@
-# Perfect Sessions Demo, Memory Driver
+# Perfect Sessions Demo, PostgreSQL Driver
 
 <p align="center">
     <a href="http://perfect.org/get-involved.html" target="_blank">
@@ -39,7 +39,7 @@
     </a>
 </p>
 
-This demo shows usage of Perfect Sessions with the Memory Driver.
+This demo shows usage of Perfect Sessions with the PostgreSQL Driver.
 
 ## Compatibility with Swift
 
@@ -55,7 +55,7 @@ The Session ID and stored session data is displayed on the page. Refresh the pag
 
 We suggest using the [Perfect Assistant](http://perfect.org/en/assistant/) for managing Server Side Swift projects. 
 
-In Perfect Assistant, click "Create New Project", and select "Custom repository URL". Choose a location for the project, and enter this URL for "Repository URL": `https://github.com/PerfectExamples/Perfect-Session-Memory-Demo.git`
+In Perfect Assistant, click "Create New Project", and select "Custom repository URL". Choose a location for the project, and enter this URL for "Repository URL": `https://github.com/PerfectExamples/Perfect-Session-PostgreSQL-Demo.git`
 
 Once the project has been created, click the "Build > Local" button. This will download all dependencies and create an Xcode Project file for you.
 
@@ -68,10 +68,10 @@ Now, run the project.
 The following will clone and build an empty starter project and launch the server on port 8181.
 
 ```
-git clone https://github.com/PerfectExamples/Perfect-Session-Memory-Demo.git
-cd Perfect-Session-Memory-Demo
+git clone https://github.com/PerfectExamples/Perfect-Session-PostgreSQL-Demo.git
+cd Perfect-Session-PostgreSQL-Demo
 swift build
-.build/debug/Perfect-Session-Memory-Demo
+.build/debug/Perfect-Session-PostgreSQL-Demo
 ```
 
 You should see the following output:
