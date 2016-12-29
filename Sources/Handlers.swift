@@ -22,6 +22,7 @@ public class WebHandlers {
 
 		request.session.data[rand.secureToken] = rand.secureToken
 //		print(request.session.data)
+		
 		var dump = ""
 		do {
 			dump = try request.session.data.jsonEncodedString()
