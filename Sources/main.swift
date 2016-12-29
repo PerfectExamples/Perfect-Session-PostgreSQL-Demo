@@ -9,7 +9,12 @@ import PerfectSessionPostgreSQL
 let server = HTTPServer()
 
 SessionConfig.name = "TestingPostgresDrivers"
-SessionConfig.idle = 10
+SessionConfig.idle = 60
+
+// Optional
+SessionConfig.cookieDomain = "localhost"
+SessionConfig.IPAddressLock = true
+SessionConfig.userAgentLock = true
 
 PostgresSessionConnector.host = "localhost"
 PostgresSessionConnector.username = "perfect"
