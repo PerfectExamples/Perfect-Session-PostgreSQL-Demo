@@ -21,8 +21,7 @@ public class WebHandlers {
 		let rand = URandom()
 
 		request.session.data[rand.secureToken] = rand.secureToken
-//		print(request.session.data)
-		
+
 		var dump = ""
 		do {
 			dump = try request.session.data.jsonEncodedString()
@@ -39,6 +38,18 @@ public class WebHandlers {
 
 	}
 
+	/* =================================================================================================================
+	CORS
+	================================================================================================================= */
+	open static func CORSHandlerGet(request: HTTPRequest, _ response: HTTPResponse) {
+
+		response.addHeader(.contentType, value: "application/json")
+		try? response.setBody(json: ["Success":"CORS Request"])
+		response.completed()
+
+	}
+
+	
 
 	/* =================================================================================================================
 	formNoCSRF
