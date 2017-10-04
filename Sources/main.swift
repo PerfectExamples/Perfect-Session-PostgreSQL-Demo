@@ -24,6 +24,21 @@ import PerfectHTTP
 import PerfectHTTPServer
 import PerfectSession
 import PerfectSessionPostgreSQL
+import PerfectLogger
+
+//let timer = Each(1).seconds
+//
+//timer.perform {
+//	// Do your operations
+//	// This closure has to return a NextStep value
+//	// Return .continue if you want to leave the timer active, otherwise
+//	// return .stop to invalidate it
+//
+//	print("yo")
+//	LogFile.debug("yo")
+//	return .continue
+//}
+
 
 let server = HTTPServer()
 

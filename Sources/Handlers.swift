@@ -10,17 +10,12 @@
 import PerfectLib
 import PerfectHTTP
 import PerfectSession
-import TurnstileCrypto
 
 public class WebHandlers {
 	/* =================================================================================================================
 	Index
 	================================================================================================================= */
 	open static func indexHandlerGet(request: HTTPRequest, _ response: HTTPResponse) {
-
-		let rand = URandom()
-
-		request.session?.data[rand.secureToken] = rand.secureToken
 
 		var dump = ""
 		do {
@@ -29,15 +24,35 @@ public class WebHandlers {
 		} catch {
 			dump = "\(error)"
 		}
-		var body = "<p>Your Session ID is: <code>\(request.session?.token)</code></p><p>Session data: <code>\(dump)</code></p>"
+		var body = "<p>Your Session ID is: <code>\(request.session?.token ?? "")</code></p><p>Session data: <code>\(dump)</code></p>"
 		body += "<p><a href=\"/withcsrf\">CSRF Test Form</a></p>"
 		body += "<p><a href=\"/nocsrf\">No CSRF Test Form</a></p>"
 
 		response.setBody(string: header+body+footer)
 		response.completed()
-
-
+		
+		
 	}
+
+
+
+	/* =================================================================================================================
+	Index
+	================================================================================================================= */
+	open static func indexHandlerGetJSON(request: HTTPRequest, _ response: HTTPResponse) {
+
+
+		var opt = [String: Any]()
+		opt["sessionid"] = request.session?.token
+		opt["dump"] = request.session?.data
+
+		_ = try? response.setBody(json: opt)
+		response.completed()
+		
+		
+	}
+
+
 
 	/* =================================================================================================================
 	CORS
@@ -57,7 +72,7 @@ public class WebHandlers {
 	================================================================================================================= */
 	open static func formNoCSRF(request: HTTPRequest, _ response: HTTPResponse) {
 
-		var body = "<p>Your Session ID is: <code>\(request.session?.token)</code></p><form method=\"POST\" action=\"?\" enctype=\"multipart/form-data\">"
+		var body = "<p>Your Session ID is: <code>\(request.session?.token ?? "")</code></p><form method=\"POST\" action=\"?\" enctype=\"multipart/form-data\">"
 		body += "<p>No CSRF Form</p>"
 		body += "<p>NOTE: You should get a failed request because there is no CSRF</p>"
 		body += "<p><input type=\"text\" name=\"testing\" value=\"testing123\"></p>"
@@ -73,7 +88,7 @@ public class WebHandlers {
 	================================================================================================================= */
 	open static func formWithCSRF(request: HTTPRequest, _ response: HTTPResponse) {
 		let t = request.session?.data["csrf"] as? String ?? ""
-		var body = "<p>Your Session ID is: <code>\(request.session?.token)</code></p><form method=\"POST\" action=\"?\" enctype=\"multipart/form-data\">"
+		var body = "<p>Your Session ID is: <code>\(request.session?.token ?? "")</code></p><form method=\"POST\" action=\"?\" enctype=\"multipart/form-data\">"
 		body += "<p>CSRF Form</p>"
 		body += "<p><input type=\"text\" name=\"testing\" value=\"testing123\"></p>"
 		body += "<p><input type=\"text\" name=\"_csrf\" value=\"\(t)\"></p>"
@@ -81,20 +96,17 @@ public class WebHandlers {
 		body += "</form>"
 		response.setBody(string: header+body+footer)
 		response.completed()
-
 	}
 
 	/* =================================================================================================================
 	formReceive
 	================================================================================================================= */
 	open static func formReceive(request: HTTPRequest, _ response: HTTPResponse) {
-		//		print("in formReceive")
-		var body = "<p>Your Session ID is: <code>\(request.session?.token)</code></p>"
+		var body = "<p>Your Session ID is: <code>\(request.session?.token ?? "")</code></p>"
 		body += "<p>CSRF Test response</p>"
 		body += "<p>Params: \(request.postParams)</p>"
 		response.setBody(string: header+body+footer)
 		response.completed()
-		
 	}
 	
 
